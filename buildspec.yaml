@@ -1,15 +1,25 @@
 version: 0.2
 
-   
+env:
+  variables:
+    JAVA_HOME: "/usr/lib/jvm/java-8-openjdk-amd64"
+    DOCKER_REGISTRY: 939923956045.dkr.ecr.ap-southeast-1.amazonaws.com/avana-laravel-mysql
+    AWS_DEFAULT_REGION: ap-southeast-1
+    APP_NAME: avana-laravel-mysql
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+    REPOSITORY_URI: 939923956045.dkr.ecr.ap-southeast-1.amazonaws.com/avana-laravel-mysql
+    
 phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
-      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - REPOSITORY_URI=939923956045.dkr.ecr.ap-southeast-1.amazonaws.com/avana-laravel-mysql
+      - aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin $DOCKER_REGISTRY
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
+      
   build:
     commands:
       - echo Build started on `date`
