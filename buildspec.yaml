@@ -6,9 +6,6 @@ env:
     DOCKER_REGISTRY: 939923956045.dkr.ecr.ap-southeast-1.amazonaws.com/avana-laravel-mysql
     AWS_DEFAULT_REGION: ap-southeast-1
     APP_NAME: avana-laravel-mysql
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: ""
     REPOSITORY_URI: 939923956045.dkr.ecr.ap-southeast-1.amazonaws.com/avana-laravel-mysql
     
 phases:
