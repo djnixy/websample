@@ -1,9 +1,6 @@
 version: 0.2
 
-env:
-  secrets-manager:
-    LOCAL_SECRET_VAR: "TestSecret:MY_SECRET_VAR"
-    
+   
 phases:
   pre_build:
     commands:
@@ -26,5 +23,4 @@ phases:
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
-      - printf '[{"name":"nodeapp","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
-      - cat imagedefinitions.json 
+
