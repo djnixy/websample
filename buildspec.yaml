@@ -2,7 +2,6 @@ version: 0.2
 
 env:
   variables:
-    JAVA_HOME: "/usr/lib/jvm/java-8-openjdk-amd64"
     DOCKER_REGISTRY: 939923956045.dkr.ecr.ap-southeast-1.amazonaws.com/avana-laravel-mysql
     AWS_DEFAULT_REGION: ap-southeast-1
     APP_NAME: avana-laravel-mysql
@@ -30,4 +29,7 @@ phases:
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
-
+      - printf '[{"name":"avana-laravel-mysql","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - cat imagedefinitions.json 
+artifacts:
+    files: imagedefinitions.json
